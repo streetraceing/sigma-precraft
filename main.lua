@@ -128,7 +128,7 @@ function renderWelcome()
         [[ \______.'[___].',__` [___||__||__]\'-;__/ |_____|  [___]    '.__.''.___.'[___]   \'-;__/[___]  \__/  ]],
         [[              ( ( __))                                                                                ]] }
     local max = getMaxLength(welcome)
-    for i=1, #welcome do graph.text("#fffa73" .. welcome[i], w/2 - max/2, h/2+i-#welcome+1, 0x141414) end
+    for i=1, #welcome do graph.text("#fffa73" .. welcome[i], w/2 - max/2, h/2+i-#welcome+2, 0x141414) end
 end
 
 assert(getNeededItemsCount() <= 20, "Максимальное число поддерживаемых предметов - 20"); assert(getCpusCount() > 0, "Не найдено ни одного процессора!")
@@ -141,7 +141,7 @@ message(string.rep(" ", 160))
 
 setScreen("start", {})
 renderWelcome()
-setTimer(3, function() setScreen("main", {}) end)
+setTimer(2, function() setScreen("main", {}) end)
 
 setInterval("main", 0.5, function() updatePrecrafts(); updatePrecrating(); renderCurrentScreen(); end)
 while true do
