@@ -17,15 +17,18 @@
         - split отвечает за количество заказываемого предмета за раз (не может быть больше count)
 ]]--
 
-local items = {
-    ["minecraft:stone"] = {
-        count = 100000,
-        split = 25000
-    },
-    ["minecraft:dirt"] = {
-        count = 500000,
-        split = 250000
+local config = {
+    renewPrecraftTimeout = 30, -- Через сколько будет перезапускаться крафт после отмены (в секундах)
+    items = {
+        ["minecraft:stone"] = {
+            count = 100000,
+            split = 25000
+        },
+        ["minecraft:dirt"] = {
+            count = 500000,
+            split = 250000
+        }
     }
 }
 
-return items
+return config

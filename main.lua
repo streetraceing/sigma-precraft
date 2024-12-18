@@ -1,10 +1,11 @@
 local graph = require("graph")
 local unicode = require("unicode")
 local gpu = require("component").gpu
-local me = require("component").me_controller
+local me = require("component").me_interface
 local computer = require("computer")
 
-local items = require("items.lua")
+local config = require("config.lua")
+local items = config.items
 local precrafting = {}
 local timers = {}
 local intervals = {}
@@ -84,8 +85,8 @@ function updatePrecrating()
         return end
         if(canceled and status.active == true) then
             precrafting[precraft].active = false
-            message(string.format("#ff3b3bОтменено: %s, повторный заказ будет через 30 секунд", getItemLabel(precraft)))
-            setTimer(30, function () precrafting[precraft] = nil; updatePrecrafts() end)
+            message(string.format("#ff3b3bОтменено: %s, повторный заказ будет через %s секунд", getItemLabel(precraft), config.renewPrecraftTimeout))
+            setTimer(config.renewPrecraftTimeout, function () precrafting[precraft] = nil; updatePrecrafts() end)
         end
     end
 end
@@ -131,6 +132,7 @@ function renderWelcome()
 end
 
 assert(getNeededItemsCount() <= 20, "Максимальное число поддерживаемых предметов - 20"); assert(getCpusCount() > 0, "Не найдено ни одного процессора!")
+assert(type(config.renewPrecraftTimeout) == "number", "renewPrecraftTimeout может быть только числом!"); assert(config.renewPrecraftTimeout < 3600, "renewPrecraftTimeout не может быть больше 1 часа!")
 
 maxMessageCount = maxMessageCount - getNeededItemsCount() - 1
 message(graph.linearGradientText("Программа запущена.", "#ffa51f", "#ffe91f"))
